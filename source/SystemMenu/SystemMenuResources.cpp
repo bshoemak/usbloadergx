@@ -56,13 +56,26 @@ bool SystemMenuResources::Init()
 	// determine resource cid
 	u16 idx = 0xffff;
 	tmd_content *contents = TMD_CONTENTS( p_tmd );
+
 	for( u16 i = 0; i < p_tmd->num_contents; i++ )
 	{
+        // If original wii, or vWii with no priiloader, index 1 
+        // should have the system menu resources that we need.
+        // Don't break though, because vWii with priiloader
+        // will require a different index.
 		if( contents[ i ].index == 1 )
 		{
 			idx = i;
-			break;
 		}
+
+        // Priiloader moves system menu resources to index 9. 
+        // If we find an index 9, we definitely have priiloader
+        // and we're on vWii, so use index 9 and stop searching.
+		if( contents[ i ].index == 9 )
+        { 
+            idx = i;
+            break;
+        }
 	}
 	if( idx == 0xffff )
 	{
@@ -71,7 +84,9 @@ bool SystemMenuResources::Init()
 	}
 	// build file path
 	char path[ ISFS_MAXPATH ]__attribute__((aligned( 32 )));
-	sprintf( path, "/title/00000001/00000002/content/%08x.app", (unsigned int)contents[ idx ].cid );
+	sprintf( 
+            path, 
+            "/title/00000001/00000002/content/%08x.app", (unsigned int)contents[ idx ].cid );
 
 	// get resource archive
 	u8* resourceArc = NULL;

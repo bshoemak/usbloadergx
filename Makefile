@@ -177,14 +177,21 @@ clean:
 	@rm -fr $(BUILD) $(OUTPUT).elf $(OUTPUT).dol usbloader_gx.zip usbloader_gx
 
 #---------------------------------------------------------------------------------
-deploy:
+
+package:
 	$(MAKE)
-	@echo Deploying...
+	@echo Packaging...
 	@[ -d usbloader_gx ] || mkdir -p usbloader_gx
 	@cp $(TARGET).dol usbloader_gx/
 	@cp HBC/icon.png usbloader_gx/
 	@cp HBC/meta.xml usbloader_gx/
 	@zip usbloader_gx.zip usbloader_gx/*
+
+#---------------------------------------------------------------------------------
+
+deploy:
+	$(MAKE) package	
+	@echo Deploying...
 	wiiload usbloader_gx.zip
 
 #---------------------------------------------------------------------------------
