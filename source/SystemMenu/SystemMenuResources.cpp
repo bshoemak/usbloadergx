@@ -57,25 +57,20 @@ bool SystemMenuResources::Init()
 	u16 idx = 0xffff;
 	tmd_content *contents = TMD_CONTENTS( p_tmd );
 
+    // Priiloader moves some system resources that we rely on from index 1 to index 9.
+    // In doing this it creates a 10th index (9) to contain the moved resources.
+    // If priiloader is installed, we need to look for content at index 9 instead of index 1.
+    bool hasVWiiPriiloader = p_tmd->num_contents == 10;
+    u16 targetIndex = hasVWiiPriiloader ? 9 : 1;
+
 	for( u16 i = 0; i < p_tmd->num_contents; i++ )
 	{
-        // If original wii, or vWii with no priiloader, index 1 
-        // should have the system menu resources that we need.
-        // Don't break though, because vWii with priiloader
-        // will require a different index.
-		if( contents[ i ].index == 1 )
+		if( contents[ i ].index == targetIndex )
 		{
 			idx = i;
+			break;
 		}
 
-        // Priiloader moves system menu resources to index 9. 
-        // If we find an index 9, we definitely have priiloader
-        // and we're on vWii, so use index 9 and stop searching.
-		if( contents[ i ].index == 9 )
-        { 
-            idx = i;
-            break;
-        }
 	}
 	if( idx == 0xffff )
 	{

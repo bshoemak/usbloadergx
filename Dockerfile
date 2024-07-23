@@ -8,7 +8,7 @@
 FROM debian:buster as usbloader
 ENV DEBIAN_FRONTEND="noninteractive" TZ="Europe/London"
 RUN apt-get update -y && apt-get install -y \ 
-    xz-utils make git
+    xz-utils make git zip
 
 ADD https://wii.leseratte10.de/devkitPro/file.php/devkitPPC-r41-2-linux_x86_64.pkg.tar.xz /
 ADD https://wii.leseratte10.de/devkitPro/file.php/libogc-2.3.1-1-any.pkg.tar.xz /
@@ -31,9 +31,11 @@ ENV DEVKITPPC=/devkitpro/devkitPPC
 # Now we have a container that has the dev environment set up. 
 # Copy current folder into container, then compile
 COPY . /projectroot/
-RUN cd /projectroot && make
+RUN cd /projectroot && make clean && make -j8 package
 
 
 # Copy the DOL and ELF out of the container
 FROM scratch AS export-stage
-COPY --from=usbloader /projectroot/boot.* /
+COPY --from=usbloader /projectroot/boot.* / 
+COPY --from=usbloader /projectroot/usbloader_gx /
+COPY --from=usbloader /projectroot/usbloader_gx.zip /
