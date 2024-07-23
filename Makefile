@@ -177,7 +177,6 @@ clean:
 	@rm -fr $(BUILD) $(OUTPUT).elf $(OUTPUT).dol usbloader_gx.zip usbloader_gx
 
 #---------------------------------------------------------------------------------
-
 package:
 	$(MAKE)
 	@echo Packaging...
