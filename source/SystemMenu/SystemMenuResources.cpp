@@ -70,13 +70,14 @@ bool SystemMenuResources::Init()
 			idx = i;
 			break;
 		}
-
 	}
+
 	if( idx == 0xffff )
 	{
 		gprintf( "SM main resource not found\n" );
 		return false;
 	}
+
 	// build file path
 	char path[ ISFS_MAXPATH ]__attribute__((aligned( 32 )));
 	sprintf(path, "/title/00000001/00000002/content/%08x.app", (unsigned int)contents[ idx ].cid);
