@@ -63,8 +63,8 @@ The interactive GUI is completely controllable with WiiMote, Classic Controller 
 Features are automatic widescreen detection, coverdownload, parental control, theme support and many more.
 
 Credits:
-Coding: Cyan, Dimok, blackb0x, nIxx, giantpune, ardi, Hungyip84, DrayX7, Lustar, r-win, WiiShizzza
-Artwork: cyrex, NeoRame
+Coding: Cyan, Dimok, blackb0x, nIxx, giantpune, ardi, Hungyip84, DrayX7, Lustar, r-win, WiiShizzza, Jacoby6000
+Artwork: cyrex, NeoRame 
 Validation: Cyan and many others
 Issue management: Cyan
 GameTDB / Covers: Lustar
