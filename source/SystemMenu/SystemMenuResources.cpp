@@ -56,22 +56,31 @@ bool SystemMenuResources::Init()
 	// determine resource cid
 	u16 idx = 0xffff;
 	tmd_content *contents = TMD_CONTENTS( p_tmd );
+
+	// Priiloader moves some system resources that we rely on from index 1 to index 9.
+	// In doing this it creates a 10th index (9) to contain the moved resources.
+	// If priiloader is installed, we need to look for content at index 9 instead of index 1.
+	bool hasVWiiPriiloader = p_tmd->num_contents == 10;
+	u16 targetIndex = hasVWiiPriiloader ? 9 : 1;
+
 	for( u16 i = 0; i < p_tmd->num_contents; i++ )
 	{
-		if( contents[ i ].index == 1 )
+		if( contents[ i ].index == targetIndex )
 		{
 			idx = i;
 			break;
 		}
 	}
+
 	if( idx == 0xffff )
 	{
 		gprintf( "SM main resource not found\n" );
 		return false;
 	}
+
 	// build file path
 	char path[ ISFS_MAXPATH ]__attribute__((aligned( 32 )));
-	sprintf( path, "/title/00000001/00000002/content/%08x.app", (unsigned int)contents[ idx ].cid );
+	sprintf(path, "/title/00000001/00000002/content/%08x.app", (unsigned int)contents[ idx ].cid);
 
 	// get resource archive
 	u8* resourceArc = NULL;
