@@ -10,11 +10,11 @@ ENV DEBIAN_FRONTEND="noninteractive" TZ="Europe/London"
 RUN apt-get update -y && apt-get install -y \ 
     xz-utils make git zip
 
-ADD https://wii.leseratte10.de/devkitPro/file.php/devkitPPC-r41-2-linux_x86_64.pkg.tar.xz /
-ADD https://wii.leseratte10.de/devkitPro/file.php/libogc-2.3.1-1-any.pkg.tar.xz /
-ADD https://wii.leseratte10.de/devkitPro/file.php/devkitppc-rules-1.1.1-1-any.pkg.tar.xz /
-ADD https://wii.leseratte10.de/devkitPro/file.php/general-tools-1.2.0-2-linux_x86_64.pkg.tar.xz /
-ADD https://wii.leseratte10.de/devkitPro/file.php/gamecube-tools-1.0.3-1-linux_x86_64.pkg.tar.xz /
+COPY .devkitpro_cache/devkitPPC-r41-2-linux_x86_64.pkg.tar.xz /
+COPY .devkitpro_cache/libogc-2.3.1-1-any.pkg.tar.xz /
+COPY .devkitpro_cache/devkitppc-rules-1.1.1-1-any.pkg.tar.xz /
+COPY .devkitpro_cache/general-tools-1.2.0-2-linux_x86_64.pkg.tar.xz /
+COPY .devkitpro_cache/gamecube-tools-1.0.3-1-linux_x86_64.pkg.tar.xz /
 
 
 RUN tar -xf /devkitPPC-r41-2-linux_x86_64.pkg.tar.xz opt/devkitpro/devkitPPC --strip-components=1 && \

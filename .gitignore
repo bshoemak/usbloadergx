@@ -2,6 +2,7 @@
 *.elf
 *.exe
 *.bat
+.devkitpro_cache
 .vscode/
 build/
 usbloader_gx/
