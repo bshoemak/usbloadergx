@@ -31,11 +31,11 @@ ENV DEVKITPPC=/devkitpro/devkitPPC
 # Now we have a container that has the dev environment set up. 
 # Copy current folder into container, then compile
 COPY . /projectroot/
-RUN cd /projectroot && make clean && make -j8 package
+RUN cd /projectroot && make clean && make -j8 dist
 
 
 # Copy the DOL and ELF out of the container
 FROM scratch AS export-stage
 COPY --from=usbloader /projectroot/boot.* / 
 COPY --from=usbloader /projectroot/usbloader_gx /
-COPY --from=usbloader /projectroot/usbloader_gx.zip /
+COPY --from=usbloader /projectroot/usbloadergx_r*.zip /

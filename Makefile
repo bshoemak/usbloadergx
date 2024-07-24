@@ -180,17 +180,24 @@ clean:
 package:
 	$(MAKE)
 	@echo Packaging...
-	@[ -d usbloader_gx ] || mkdir -p usbloader_gx
-	@cp $(TARGET).dol usbloader_gx/
-	@cp HBC/icon.png usbloader_gx/
-	@cp HBC/meta.xml usbloader_gx/
-	@zip usbloader_gx.zip usbloader_gx/*
+	@[ -d $(PROJECTDIR)/usbloader_gx ] || mkdir -p $(PROJECTDIR)/usbloader_gx
+	@cp $(TARGET).dol $(PROJECTDIR)/usbloader_gx/
+	@cp $(PROJECTDIR)/HBC/icon.png $(PROJECTDIR)/usbloader_gx/
+	@cp $(PROJECTDIR)/HBC/meta.xml $(PROJECTDIR)/usbloader_gx/
+
+#---------------------------------------------------------------------------------
+dist:
+	$(MAKE) package
+	@mkdir -p $(PROJECTDIR)/dist/apps
+	@cp -r $(PROJECTDIR)/usbloader_gx $(PROJECTDIR)/dist/apps/
+	@cd $(PROJECTDIR)/dist && zip "../usbloadergx_r`cat $(PROJECTDIR)/version.txt`" -r .
 
 #---------------------------------------------------------------------------------
 
 deploy:
 	$(MAKE) package	
 	@echo Deploying...
+	@zip usbloader_gx.zip usbloader_gx/*
 	wiiload usbloader_gx.zip
 
 #---------------------------------------------------------------------------------
