@@ -187,8 +187,9 @@ package:
 	@zip usbloader_gx.zip usbloader_gx/*
 
 #---------------------------------------------------------------------------------
+
 deploy:
-	$(MAKE) package
+	$(MAKE) package	
 	@echo Deploying...
 	wiiload usbloader_gx.zip
 
