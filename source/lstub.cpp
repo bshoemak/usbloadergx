@@ -51,9 +51,9 @@ u64 returnTo(bool onlyHBC)
 {
 	if (!onlyHBC)
 	{
-		// UNEO
-		if (NandTitles.IndexOf(0x00010001554E454FULL) >= 0)
-			return 0x00010001554E454FULL;
+		// WWND
+		if (NandTitles.IndexOf(0x0001000157574E44ULL) >= 0)
+			return 0x0001000157574E44ULL;
 		// ULNR
 		if (NandTitles.IndexOf(0x00010001554C4E52ULL) >= 0)
 			return 0x00010001554C4E52ULL;
